@@ -1,4 +1,6 @@
   # Boss Jokers
+
+  # Steamodded 0.9.8
   
   -Adds 23 Jokers themed after Boss Blinds
   
