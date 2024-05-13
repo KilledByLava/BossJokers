@@ -1,6 +1,6 @@
   # Boss Jokers
   
-  -Adds 23 Jokers themeed after Boss Blinds
+  -Adds 23 Jokers themed after Boss Blinds
   
   -All 23 Jokers share an ability
   
