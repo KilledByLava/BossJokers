@@ -54,7 +54,19 @@ jd_def['j_thearm'] = { -- Arm Joker
 }
 
 jd_def['j_theeye'] = { -- Eye Joker
-
+    reminder_text = {
+        { text = '(' },
+        { ref_table = "card.joker_display_values", ref_value = "active_text" },
+        { text = ')' },
+    },
+    calc_function = function(card)
+        local hand = next(G.play.cards) and G.play.cards or G.hand.highlighted
+        local text, _, _ = JokerDisplay.evaluate_hand(hand)
+        local active = G.GAME.hands[text] and G.GAME.hands[text].played_this_round >= 1
+        card.joker_display_values.active = active
+        card.joker_display_values.active_text = card.joker_display_values.active and
+            localize('k_active') or "Inactive"
+    end,
 }
 
 jd_def['j_thetooth'] = { -- Tooth Joker
