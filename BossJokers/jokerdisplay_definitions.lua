@@ -153,13 +153,11 @@ jd_def['j_themark'] = { -- Mark Joker
     extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
         local count = 0
-        local hand = next(G.play.cards) and G.play.cards or G.hand.highlighted
-        local text, _, scoring_hand = JokerDisplay.evaluate_hand(hand)
-        if text ~= 'Unknown' then
-            for _, scoring_card in pairs(scoring_hand) do
-                if scoring_card:is_face() then
-                    count = count +
-                        JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+        local playing_hand = next(G.play.cards)
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_hand or not playing_card.highlighted then
+                if playing_card.facing and not (playing_card.facing == 'back') and playing_card:is_face() then
+                    count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
                 end
             end
         end
