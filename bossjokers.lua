@@ -571,14 +571,13 @@ local jokers = {
         soul_pos=nil,
     
         calculate = function(self,context)
-            if context.cardarea == G.jokers and not context.before and not context.after then
-                if #G.play.cards <= self.ability.extra.size then
-                    return {
-                        message = localize{type='variable',key='a_xmult',vars={self.ability.extra.xmult}},
-                        Xmult_mod = self.ability.extra.xmult
-                    }
-                end
+            if context.joker_main and #context.scoring_hand < 5 then
+                return {
+                    message = localize{type='variable',key='a_xmult',vars={self.ability.extra.xmult}},
+                    Xmult_mod = self.ability.extra.xmult
+                }
             end
+
             if context.setting_blind and not self.getting_sliced then
                 if G.GAME.blind and ((not G.GAME.blind.disabled) and (G.GAME.blind.name == 'The Psychic')) then
                     card_eval_status_text(context.blueprint_card or self, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
@@ -649,7 +648,7 @@ local jokers = {
         soul_pos=nil,
     
         calculate = function(self,context)
-            if context.cardarea == G.jokers and not context.before and not context.after then
+            if context.joker_main then
                 if G.GAME.hands[context.scoring_name] and G.GAME.hands[context.scoring_name].played_this_round == 1 then
                     return {
                         message = localize{type='variable',key='a_xmult',vars={self.ability.extra.Xmult}},
@@ -657,6 +656,7 @@ local jokers = {
                     }
                 end
             end
+
             if context.setting_blind and not self.getting_sliced then
                 if G.GAME.blind and ((not G.GAME.blind.disabled) and (G.GAME.blind.name == 'The Mouth')) then
                     card_eval_status_text(context.blueprint_card or self, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
